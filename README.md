@@ -72,7 +72,25 @@ like this:
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
       compile project(':react-native-threads')
-  	```
+ 	```
+4. Insert the following lines inside `react-native.config.js` at the root of your project:
+    ```
+    module.exports = {
+      dependencies: [
+        'react-native-threads',
+      ].reduce((dependencies, name) => {
+        dependencies[name] = {
+          platforms: {
+            // disable Android platform,
+            // other platforms will still autolink if provided
+            android: null,
+          },
+        }
+        return dependencies
+      }, {}),
+    }
+    ```
+
 
 #### Windows
 Windows support is not yet implemented, but PRs are welcome if you want to give it a shot!
